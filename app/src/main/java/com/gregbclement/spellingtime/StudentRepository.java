@@ -7,37 +7,101 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Arrays;
 import java.util.List;
 
 public class StudentRepository {
 
+    private static final String URL  ="https://gregbclement.com/api/Student";
     Context context;
     public  StudentRepository(Context context) {
         this.context = context;
     }
 
+    public  void saveStudent(Student student, final  NetworkCallback callback) {
 
-    public  void getStudents(final NetworkCallback callback ) {
+
+        Gson gson = new Gson();
+        String json = gson.toJson(student);
         RequestQueue queue = Volley.newRequestQueue(context);
-        String url = "https://gregbclement.com/api/Student";
 
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,new Response.Listener<String>() {
+
+        try {
+            JsonObjectRequest req = new JsonObjectRequest(URL, new JSONObject(json),
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            try {
+                                VolleyLog.v("Response:%n %s", response.toString(4));
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+                            callback.onComplete(null);
+
+                        }
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    VolleyLog.e("Error: ", error.getMessage());
+                }
+            });
+
+            queue.add(req);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public  void deleteStudent(Student student, final NetworkCallback callback) {
+        String url = URL + "?id=" + student.getId();
+        RequestQueue queue = Volley.newRequestQueue(context);
+
+
+        StringRequest stringRequest = new StringRequest(Request.Method.DELETE, url,new Response.Listener<String>() {
 
             @Override
             public void onResponse(String response) {
-                // Display the first 500 characters of the response string.
+
+
+
+                callback.onComplete(null);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+
+        // Add the request to the RequestQueue.
+        queue.add(stringRequest);
+    }
+
+    public  void getStudents(final NetworkCallback callback ) {
+        RequestQueue queue = Volley.newRequestQueue(context);
+
+
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, URL,new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+
                 Gson gson = new Gson();
                 Student[] studentArray = gson.fromJson(response, Student[].class);
 
                 List<Student> studentList = Arrays.asList(studentArray);
 
-                callback.onGetStudents(studentList);
+                callback.onComplete(studentList);
             }
         }, new Response.ErrorListener() {
             @Override

@@ -1,7 +1,20 @@
 package com.gregbclement.spellingtime;
 
+import android.annotation.TargetApi;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -13,54 +26,84 @@ import com.android.volley.toolbox.Volley;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.Console;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+    public static final String STUDENT_REFERENCE = "com.gregbclement.spellingtime.STUDENT_REFERENCE";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // This was updated. And updated again.
-        getStudentFeed();
+        showStudentList();
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        setSupportActionBar(toolbar);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
 
-    private void getStudentFeed() {
-        RequestQueue queue = Volley.newRequestQueue(this);
-        String url = "https://gregbclement.com/api/Student";
-        final TextView mTextView = (TextView) findViewById(R.id.text);
+        menuInflater.inflate(R.menu.main_activity_menu, menu);
+        return true;
+    }
 
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,new Response.Listener<String>() {
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
 
-            @Override
-            public void onResponse(String response) {
-                // Display the first 500 characters of the response string.
-                // mTextView.setText("Response is: "+ response.substring(0,500));
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                mTextView.setText("That didn't work!");
-            }
-        });
+        if (item.getItemId() == R.id.addNew) {
+            Intent intent = new Intent(this, NewStudent.class);
 
-        // Add the request to the RequestQueue.
-        queue.add(stringRequest);
+            startActivity(intent);
+        }
+        return true;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        showStudentList();
+    }
+
+    public void showAddNewStudent(View view) {
+        Intent intent = new Intent(this, NewStudent.class);
+
+        startActivity(intent);
+    }
+
+    private void showStudentList() {
 
         StudentRepository sr = new StudentRepository(this);
+        final Context thisContext = this;
 
         sr.getStudents(new NetworkCallback<List<Student>>() {
             @Override
-            public void onGetStudents(List<Student> students) {
-                mTextView.setText(students.get(1).getName());
+            public void onComplete(final List<Student> students) {
+                StudentAdapter adapter = new StudentAdapter(thisContext, students);
+
+                ListView listView = (ListView) findViewById(R.id.studentsLv);
+                listView.setAdapter(adapter);
+
+                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        Student student = students.get(position);
+                        Intent intent = new Intent(thisContext, ViewStudent.class);
+                        intent.putExtra(STUDENT_REFERENCE, student);
+                        startActivity(intent);
+                    }
+                });
             }
         });
     }

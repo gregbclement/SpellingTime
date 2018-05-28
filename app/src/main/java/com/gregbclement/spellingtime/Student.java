@@ -1,11 +1,18 @@
 package com.gregbclement.spellingtime;
 
-public class Student {
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
+
+import java.io.Serializable;
+
+public class Student implements Serializable {
     private String name;
     private String id;
     private String itemType;
     private Boolean inactive;
     private String picture;
+    private transient Bitmap pictureBitmap;
 
     public String getName() {
         return name;
@@ -45,5 +52,14 @@ public class Student {
 
     public void setPicture(String picture) {
         this.picture = picture;
+    }
+
+    public    Bitmap getPictureBitmap() {
+        if(pictureBitmap == null) {
+            byte[] imageBytes = Base64.decode(picture, Base64.DEFAULT);
+            pictureBitmap = BitmapFactory.decodeByteArray(imageBytes, 0 ,imageBytes.length);
+        }
+
+        return pictureBitmap;
     }
 }

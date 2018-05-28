@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">SpellingTime</string>
+    <string name="add_new_action">Add New</string>
+    <string name="delete_text">Delete</string>
+    <string name="create_student">Add Student</string>
+    <string name="new_list">New list</string>
 </resources>

@@ -3,6 +3,11 @@
     package="com.gregbclement.spellingtime">
 
     <uses-permission android:name="android.permission.INTERNET" />
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -17,6 +22,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".NewStudent" />
+        <activity android:name=".ViewStudent" />
+        <activity android:name=".ViewSpellingList"></activity>
     </application>
 
 </manifest>
