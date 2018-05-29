@@ -63,6 +63,9 @@ public class SpellingList implements Comparable<SpellingList>, Serializable {
 
     @Override
     public int compareTo(@NonNull SpellingList o) {
+        if(this.getCreatedDate() == null || o.getCreatedDate() == null)
+            return 0;
+
         return -this.getCreatedDate().compareTo(o.getCreatedDate());
     }
 }

@@ -12,10 +12,8 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.Arrays;
 import java.util.List;
 
@@ -27,7 +25,7 @@ public class StudentRepository {
         this.context = context;
     }
 
-    public  void saveStudent(Student student, final  NetworkCallback callback) {
+    public  void saveStudent(Student student, final NetworkCallback callback) {
 
 
         Gson gson = new Gson();

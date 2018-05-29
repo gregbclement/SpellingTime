@@ -24,7 +24,17 @@
         </activity>
         <activity android:name=".NewStudent" />
         <activity android:name=".ViewStudent" />
-        <activity android:name=".ViewSpellingList"></activity>
+        <activity android:name=".ViewSpellingList" />
+        <activity android:name=".Quiz" />
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value="com.gregbclement.spellingtime.MainActivity" />
+
+        <activity android:name=".NewList"></activity>
     </application>
 
 </manifest>

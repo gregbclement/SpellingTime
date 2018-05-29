@@ -38,6 +38,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     public static final String STUDENT_REFERENCE = "com.gregbclement.spellingtime.STUDENT_REFERENCE";
+    public  static  final   String REFRESH_NEEDED = "com.gregbclement.spellingtime.REFRESH_NEEDED";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,12 +81,17 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, NewStudent.class);
 
         startActivity(intent);
+
+        ListView listView = (ListView) findViewById(R.id.studentsLv);
+
     }
 
+    private boolean headerAdded;
     private void showStudentList() {
 
         StudentRepository sr = new StudentRepository(this);
         final Context thisContext = this;
+
 
         sr.getStudents(new NetworkCallback<List<Student>>() {
             @Override
@@ -98,12 +104,18 @@ public class MainActivity extends AppCompatActivity {
                 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Student student = students.get(position);
+                        Student student = students.get(position - 1);
                         Intent intent = new Intent(thisContext, ViewStudent.class);
                         intent.putExtra(STUDENT_REFERENCE, student);
                         startActivity(intent);
                     }
                 });
+
+                if(!headerAdded) {
+                    final View header = getLayoutInflater().inflate(R.layout.main_activity_header, null);
+                    listView.addHeaderView(header);
+                    headerAdded = true;
+                }
             }
         });
     }
