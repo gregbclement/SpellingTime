@@ -76,7 +76,7 @@ public class ViewSpellingList extends AppCompatActivity {
             }
         });
 
-        listView.addHeaderView(header);
+        listView.addHeaderView(header, null, false);
 
         SwipeMenuCreator creator = new SwipeMenuCreator() {
 

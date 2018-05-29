@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
 
                 if(!headerAdded) {
                     final View header = getLayoutInflater().inflate(R.layout.main_activity_header, null);
-                    listView.addHeaderView(header);
+                    listView.addHeaderView(header, null, false);
                     headerAdded = true;
                 }
             }

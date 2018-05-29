@@ -14,18 +14,19 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:screenOrientation="portrait"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".NewStudent" />
-        <activity android:name=".ViewStudent" />
-        <activity android:name=".ViewSpellingList" />
-        <activity android:name=".Quiz" />
+        <activity android:name=".NewStudent" android:screenOrientation="portrait" />
+        <activity android:name=".ViewStudent" android:screenOrientation="portrait" />
+        <activity android:name=".ViewSpellingList" android:screenOrientation="portrait" />
+        <activity android:name=".Quiz" android:screenOrientation="portrait" />
 
         <meta-data
             android:name="preloaded_fonts"
@@ -34,7 +35,7 @@
             android:name="android.support.PARENT_ACTIVITY"
             android:value="com.gregbclement.spellingtime.MainActivity" />
 
-        <activity android:name=".NewList"></activity>
+        <activity android:name=".NewList" android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

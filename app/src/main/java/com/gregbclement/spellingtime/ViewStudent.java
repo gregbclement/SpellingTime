@@ -71,7 +71,7 @@ public class ViewStudent extends AppCompatActivity {
 
         final SwipeMenuListView listView = (SwipeMenuListView) findViewById(R.id.spellingListsLV);
 
-        listView.addHeaderView(header);
+        listView.addHeaderView(header, null ,false);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
