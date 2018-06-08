@@ -14,6 +14,7 @@ public class SpellingWord {
     private Integer lastScore;
     private Integer currentScore;
     private List<Score> scores;
+    private SpellingWordDefinition wordDefinition;
 
     public String getWord() {
         return word;
@@ -93,5 +94,13 @@ public class SpellingWord {
 
     public void setScores(List<Score> scores) {
         this.scores = scores;
+    }
+
+    public SpellingWordDefinition getWordDefinition() {
+        return wordDefinition;
+    }
+
+    public void setWordDefinition(SpellingWordDefinition wordDefinition) {
+        this.wordDefinition = wordDefinition;
     }
 }

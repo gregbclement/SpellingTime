@@ -30,7 +30,6 @@ import java.util.Date;
 import java.util.List;
 
 public class ViewSpellingList extends AppCompatActivity {
-    TextToSpeech tts;
     SpellingList spellingList;
     List<SpellingWord> spellingWords = new ArrayList<>();
     SpellingListItemAdapter adapter;
@@ -46,12 +45,7 @@ public class ViewSpellingList extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        tts = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
-            @Override
-            public void onInit(int status) {
 
-            }
-        });
 
         final View header = getLayoutInflater().inflate(R.layout.spelling_list_header, null);
 
@@ -153,7 +147,6 @@ public class ViewSpellingList extends AppCompatActivity {
 
     public void Speak(View view) {
 
-        tts.speak("This is a test", TextToSpeech.QUEUE_FLUSH, null,null);
     }
 
     public  void addWord(View view) {

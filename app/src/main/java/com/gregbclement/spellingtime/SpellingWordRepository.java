@@ -21,7 +21,8 @@ import java.util.Collections;
 import java.util.List;
 
 public class SpellingWordRepository {
-    private static final String URL = "https://gregbclement.com/api/SpellingWord";
+    private static  final  String BASE_URL = "https://gregbclement.com/";
+    private static final String URL = BASE_URL + "api/SpellingWord";
     Context context;
 
     public SpellingWordRepository(Context context) {
@@ -90,6 +91,39 @@ public class SpellingWordRepository {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    public void getWordDefinition(SpellingWord spellingWord, final NetworkCallback callback) {
+        String url = BASE_URL + "Spelling/GetWordDefinition?word=" + spellingWord.getWord();
+        RequestQueue queue = Volley.newRequestQueue(context);
+
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+
+                if(response != null && response != "") {
+
+                    Gson gson = new Gson();
+                    SpellingWordDefinition definition = gson.fromJson(response, SpellingWordDefinition.class);
+
+
+                    callback.onComplete(definition);
+                }
+                else {
+                    callback.onComplete(null);
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+
+        // Add the request to the RequestQueue.
+        queue.add(stringRequest);
     }
 
     public void deleteSpellingWord(SpellingWord spellingWord, final NetworkCallback callback) {

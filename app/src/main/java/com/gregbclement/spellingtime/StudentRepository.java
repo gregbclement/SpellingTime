@@ -12,26 +12,26 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.util.Arrays;
 import java.util.List;
 
 public class StudentRepository {
 
-    private static final String URL  ="https://gregbclement.com/api/Student";
+    private static final String URL = "https://gregbclement.com/api/Student";
     Context context;
-    public  StudentRepository(Context context) {
+
+    public StudentRepository(Context context) {
         this.context = context;
     }
 
-    public  void saveStudent(Student student, final NetworkCallback callback) {
-
-
+    public void saveStudent(Student student, final NetworkCallback callback) {
         Gson gson = new Gson();
         String json = gson.toJson(student);
         RequestQueue queue = Volley.newRequestQueue(context);
-
 
         try {
             JsonObjectRequest req = new JsonObjectRequest(URL, new JSONObject(json),
@@ -60,18 +60,15 @@ public class StudentRepository {
         }
     }
 
-    public  void deleteStudent(Student student, final NetworkCallback callback) {
+    public void deleteStudent(Student student, final NetworkCallback callback) {
         String url = URL + "?id=" + student.getId();
         RequestQueue queue = Volley.newRequestQueue(context);
 
 
-        StringRequest stringRequest = new StringRequest(Request.Method.DELETE, url,new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.DELETE, url, new Response.Listener<String>() {
 
             @Override
             public void onResponse(String response) {
-
-
-
                 callback.onComplete(null);
             }
         }, new Response.ErrorListener() {
@@ -85,11 +82,11 @@ public class StudentRepository {
         queue.add(stringRequest);
     }
 
-    public  void getStudents(final NetworkCallback callback ) {
+    public void getStudents(final NetworkCallback callback) {
         RequestQueue queue = Volley.newRequestQueue(context);
 
 
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, URL,new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, URL, new Response.Listener<String>() {
 
             @Override
             public void onResponse(String response) {
