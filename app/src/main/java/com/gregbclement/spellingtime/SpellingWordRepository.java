@@ -94,7 +94,7 @@ public class SpellingWordRepository {
     }
 
     public void getWordDefinition(SpellingWord spellingWord, final NetworkCallback callback) {
-        String url = BASE_URL + "Spelling/GetWordDefinition?word=" + spellingWord.getWord();
+        String url = URL + "/Definition?word=" + spellingWord.getWord();
         RequestQueue queue = Volley.newRequestQueue(context);
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
@@ -104,6 +104,7 @@ public class SpellingWordRepository {
 
                 if(response != null && response != "") {
 
+                    response = response.replaceAll("\\\\u[0-9]{3}[A-Z a-z 0-9]", "");
                     Gson gson = new Gson();
                     SpellingWordDefinition definition = gson.fromJson(response, SpellingWordDefinition.class);
 
