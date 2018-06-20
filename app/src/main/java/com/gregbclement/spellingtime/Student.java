@@ -55,11 +55,19 @@ public class Student implements Serializable {
     }
 
     public    Bitmap getPictureBitmap() {
-        if(pictureBitmap == null) {
-            byte[] imageBytes = Base64.decode(picture, Base64.DEFAULT);
-            pictureBitmap = BitmapFactory.decodeByteArray(imageBytes, 0 ,imageBytes.length);
+        if(picture == "") {
+            return null;
         }
 
-        return pictureBitmap;
+        try {
+            if (pictureBitmap == null) {
+                byte[] imageBytes = Base64.decode(picture, Base64.DEFAULT);
+                pictureBitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
+            }
+
+            return pictureBitmap;
+        }catch(Exception ex) {}
+
+        return null;
     }
 }
