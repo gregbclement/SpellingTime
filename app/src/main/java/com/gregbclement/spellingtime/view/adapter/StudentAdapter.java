@@ -1,4 +1,4 @@
-package com.gregbclement.spellingtime;
+package com.gregbclement.spellingtime.view.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -6,9 +6,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
+
+import com.gregbclement.spellingtime.R;
+import com.gregbclement.spellingtime.model.Student;
 
 import java.util.List;
 

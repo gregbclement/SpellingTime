@@ -1,4 +1,4 @@
-package com.gregbclement.spellingtime;
+package com.gregbclement.spellingtime.utility;
 
 import android.content.Context;
 import android.util.Log;

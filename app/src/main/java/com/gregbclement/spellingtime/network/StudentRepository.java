@@ -1,8 +1,7 @@
-package com.gregbclement.spellingtime;
+package com.gregbclement.spellingtime.network;
 
 import android.content.Context;
 import android.util.Log;
-import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -13,6 +12,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
+import com.gregbclement.spellingtime.model.Student;
 
 import org.json.JSONException;
 import org.json.JSONObject;

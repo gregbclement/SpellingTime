@@ -1,4 +1,4 @@
-package com.gregbclement.spellingtime;
+package com.gregbclement.spellingtime.view.activity;
 
 import android.app.Activity;
 import android.content.Context;
@@ -10,20 +10,24 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.baoyz.swipemenulistview.SwipeMenu;
 import com.baoyz.swipemenulistview.SwipeMenuCreator;
 import com.baoyz.swipemenulistview.SwipeMenuItem;
 import com.baoyz.swipemenulistview.SwipeMenuListView;
+import com.gregbclement.spellingtime.R;
+import com.gregbclement.spellingtime.model.SpellingList;
+import com.gregbclement.spellingtime.model.Student;
+import com.gregbclement.spellingtime.network.NetworkCallback;
+import com.gregbclement.spellingtime.network.SpellingListRepository;
+import com.gregbclement.spellingtime.network.StudentRepository;
+import com.gregbclement.spellingtime.view.adapter.SpellingListAdapter;
 
 import java.util.ArrayList;
 import java.util.List;

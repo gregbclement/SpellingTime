@@ -1,8 +1,7 @@
-package com.gregbclement.spellingtime;
+package com.gregbclement.spellingtime.network;
 
 import android.content.Context;
 import android.util.Log;
-import android.view.textservice.SpellCheckerInfo;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -13,12 +12,14 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
+import com.gregbclement.spellingtime.model.SpellingWordDefinition;
+import com.gregbclement.spellingtime.model.SpellingList;
+import com.gregbclement.spellingtime.model.SpellingWord;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 public class SpellingWordRepository {

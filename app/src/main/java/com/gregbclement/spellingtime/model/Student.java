@@ -1,4 +1,4 @@
-package com.gregbclement.spellingtime;
+package com.gregbclement.spellingtime.model;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;

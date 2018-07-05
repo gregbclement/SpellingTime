@@ -1,5 +1,7 @@
 package com.gregbclement.spellingtime;
 
+import com.gregbclement.spellingtime.model.Score;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;

@@ -16,26 +16,26 @@
         android:supportsRtl="true"
         android:screenOrientation="portrait"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity" android:screenOrientation="portrait">
+        <activity android:name=".view.activity.MainActivity" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".NewStudent" android:screenOrientation="portrait" />
-        <activity android:name=".ViewStudent" android:screenOrientation="portrait" />
-        <activity android:name=".ViewSpellingList" android:screenOrientation="portrait" />
-        <activity android:name=".Quiz" android:screenOrientation="portrait" />
+        <activity android:name=".view.activity.NewStudent" android:screenOrientation="portrait" />
+        <activity android:name=".view.activity.ViewStudent" android:screenOrientation="portrait" />
+        <activity android:name=".view.activity.ViewSpellingList" android:screenOrientation="portrait" />
+        <activity android:name=".view.activity.Quiz" android:screenOrientation="portrait" />
 
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
         <meta-data
             android:name="android.support.PARENT_ACTIVITY"
-            android:value="com.gregbclement.spellingtime.MainActivity" />
+            android:value="com.gregbclement.spellingtime.view.activity.MainActivity" />
 
-        <activity android:name=".NewList" android:screenOrientation="portrait"></activity>
+        <activity android:name=".view.activity.NewList" android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

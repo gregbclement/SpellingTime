@@ -1,18 +1,14 @@
-package com.gregbclement.spellingtime;
+package com.gregbclement.spellingtime.view.activity;
 
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.speech.tts.TextToSpeech;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ProgressBar;
@@ -23,6 +19,16 @@ import com.baoyz.swipemenulistview.SwipeMenu;
 import com.baoyz.swipemenulistview.SwipeMenuCreator;
 import com.baoyz.swipemenulistview.SwipeMenuItem;
 import com.baoyz.swipemenulistview.SwipeMenuListView;
+import com.gregbclement.spellingtime.utility.OnSwipeTouchListener;
+import com.gregbclement.spellingtime.R;
+import com.gregbclement.spellingtime.utility.SwipeTarget;
+import com.gregbclement.spellingtime.model.Score;
+import com.gregbclement.spellingtime.model.SpellingList;
+import com.gregbclement.spellingtime.model.SpellingWord;
+import com.gregbclement.spellingtime.model.SpellingWordDefinition;
+import com.gregbclement.spellingtime.network.NetworkCallback;
+import com.gregbclement.spellingtime.network.SpellingWordRepository;
+import com.gregbclement.spellingtime.view.adapter.ScoreAdapter;
 
 import java.util.ArrayList;
 import java.util.Calendar;

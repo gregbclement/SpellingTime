@@ -1,12 +1,9 @@
-package com.gregbclement.spellingtime;
+package com.gregbclement.spellingtime.view.activity;
 
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.provider.MediaStore;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -14,8 +11,13 @@ import android.util.Base64;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.gregbclement.spellingtime.R;
+import com.gregbclement.spellingtime.model.Student;
+import com.gregbclement.spellingtime.network.NetworkCallback;
+import com.gregbclement.spellingtime.network.StudentRepository;
+import com.gregbclement.spellingtime.view.activity.MainActivity;
 
 import java.io.ByteArrayOutputStream;
 

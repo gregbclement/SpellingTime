@@ -1,4 +1,4 @@
-package com.gregbclement.spellingtime;
+package com.gregbclement.spellingtime.model;
 
 import java.util.Date;
 import java.util.List;

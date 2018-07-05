@@ -1,4 +1,4 @@
-package com.gregbclement.spellingtime;
+package com.gregbclement.spellingtime.utility;
 
 public interface SwipeTarget {
     public  void SwipeLeft();

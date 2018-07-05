@@ -1,4 +1,4 @@
-package com.gregbclement.spellingtime;
+package com.gregbclement.spellingtime.view.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -9,9 +9,10 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.List;
+import com.gregbclement.spellingtime.R;
+import com.gregbclement.spellingtime.model.SpellingList;
 
-import de.hdodenhof.circleimageview.CircleImageView;
+import java.util.List;
 
 public class SpellingListAdapter  extends ArrayAdapter<SpellingList> {
 
