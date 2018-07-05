@@ -1,6 +1,7 @@
 package com.gregbclement.spellingtime;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.textservice.SpellCheckerInfo;
 
 import com.android.volley.Request;
@@ -41,12 +42,21 @@ public class SpellingWordRepository {
             public void onResponse(String response) {
 
                 Gson gson = new Gson();
-                SpellingWord[] spellingWordsArray = gson.fromJson(response, SpellingWord[].class);
+                try {
+                    // There is an instance where the JSON is malformed coming back from the server
+                    // It is sometimes sending the definition over as a string, but the app is expecting
+                    // and object.  This just does a quick correction of the raw json
+                    response = response.replaceAll("\"wordDefinition\":\"\"", "\"wordDefinition\":{}");
+                    SpellingWord[] spellingWordsArray = gson.fromJson(response, SpellingWord[].class);
 
-                List<SpellingWord> spellingWords = Arrays.asList(spellingWordsArray);
+                    List<SpellingWord> spellingWords = Arrays.asList(spellingWordsArray);
 
 
-                callback.onComplete(spellingWords);
+                    callback.onComplete(spellingWords);
+                }catch (Exception e) {
+                    Log.e("SpellingTime","Error deserializing", e);
+                    Log.i("SpellingTime",response);
+                }
             }
         }, new Response.ErrorListener() {
             @Override
@@ -73,6 +83,7 @@ public class SpellingWordRepository {
                                 VolleyLog.v("Response:%n %s", response.toString(4));
                             } catch (JSONException e) {
                                 e.printStackTrace();
+                                Log.e("SpellingTime","exception",e);
                             }
                             Gson gson = new Gson();
                             SpellingWord dbWord  = gson.fromJson(response.toString(), SpellingWord.class);
@@ -90,6 +101,7 @@ public class SpellingWordRepository {
             queue.add(req);
         } catch (JSONException e) {
             e.printStackTrace();
+            Log.e("SpellingTime","exception",e);
         }
     }
 

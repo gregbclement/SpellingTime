@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.io.ByteArrayOutputStream;
 
@@ -21,8 +23,9 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class NewStudent extends AppCompatActivity {
     static final int REQUEST_IMAGE_CAPTURE = 1;
-
+    Student newStudent = new Student();
     byte[] imageBytes;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +34,25 @@ public class NewStudent extends AppCompatActivity {
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        CircleImageView mImageView = (CircleImageView)findViewById(R.id.profileCircleImage);
+        Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.student);
+        mImageView.setImageBitmap(bm);
+
+        Student student = (Student) getIntent().getSerializableExtra(MainActivity.STUDENT_REFERENCE);
+        if(student != null) {
+            newStudent = student;
+            EditText studentNameText = (EditText)findViewById(R.id.studentNameText);
+
+            studentNameText.setText(student.getName());
+
+            if(student.getPictureBitmap() != null) {
+                mImageView.setImageBitmap(student.getPictureBitmap());
+            }
+
+            TextView tv = (TextView)findViewById(R.id.pageHeaderTextView);
+            tv.setText("Edit Student");
+        }
     }
 
     public  void takePicture(View view)  {
@@ -45,7 +67,7 @@ public class NewStudent extends AppCompatActivity {
         StudentRepository studentRepository  = new StudentRepository(this);
 
         EditText studentNameText = (EditText)findViewById(R.id.studentNameText);
-        Student newStudent = new Student();
+
 
         newStudent.setName(studentNameText.getText().toString());
 

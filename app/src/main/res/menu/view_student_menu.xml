@@ -10,5 +10,8 @@
         app:showAsAction="never"
         />
 
+    <item android:id='@+id/edit_student' android:title="Edit Student"
+        app:showAsAction="never" />
+
 
 </menu>

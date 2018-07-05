@@ -38,23 +38,19 @@ public class ViewStudent extends AppCompatActivity {
     public static final String SPELLING_LIST_REFERENCE = "com.gregbclement.spellingtime.SPELLING_LIST_REFERENCE";
     final int ADD_LIST_CODE = 100;
     final int VIEW_LIST_CODE = 101;
+    View header;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_student);
 
-        this.student = (Student) getIntent().getSerializableExtra(MainActivity.STUDENT_REFERENCE);
 
 
-        final View header = getLayoutInflater().inflate(R.layout.view_student_header, null);
 
-        TextView studentName = (TextView) header.findViewById(R.id.studentName);
-        studentName.setText(student.getName());
+        header = getLayoutInflater().inflate(R.layout.view_student_header, null);
+        setupStudentInformation();
 
-        CircleImageView circleImageView = (CircleImageView) header.findViewById(R.id.studentPicture);
-
-        circleImageView.setImageBitmap(student.getPictureBitmap());
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -145,6 +141,24 @@ public class ViewStudent extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        setupStudentInformation();
+    }
+
+    private void setupStudentInformation() {
+
+
+        this.student = (Student) getIntent().getSerializableExtra(MainActivity.STUDENT_REFERENCE);
+        TextView studentName = (TextView) header.findViewById(R.id.studentName);
+        studentName.setText(student.getName());
+
+        CircleImageView circleImageView = (CircleImageView) header.findViewById(R.id.studentPicture);
+
+        circleImageView.setImageBitmap(student.getPictureBitmap());
+    }
+
     private void refreshStudentSpellingLists() {
         SpellingListRepository repository = new SpellingListRepository(this);
         repository.getStudentSpellingLists(student, new NetworkCallback<List<SpellingList>>() {
@@ -222,6 +236,12 @@ public class ViewStudent extends AppCompatActivity {
         }
         if (item.getItemId() == android.R.id.home) {
             finish();
+        }
+
+        if(item.getItemId() == R.id.edit_student) {
+            Intent intent = new Intent(thisContext, NewStudent.class);
+            intent.putExtra(MainActivity.STUDENT_REFERENCE, student);
+            startActivity(intent);
         }
         return true;
     }

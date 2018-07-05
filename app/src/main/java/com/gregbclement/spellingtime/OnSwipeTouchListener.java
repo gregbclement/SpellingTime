@@ -1,6 +1,7 @@
 package com.gregbclement.spellingtime;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.MotionEvent;
@@ -58,6 +59,7 @@ public class OnSwipeTouchListener implements OnTouchListener {
                 }
             } catch (Exception exception) {
                 exception.printStackTrace();
+                Log.e("SpellingTime","exception",exception);
             }
             return result;
         }

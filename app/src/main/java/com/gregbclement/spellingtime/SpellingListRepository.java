@@ -1,6 +1,7 @@
 package com.gregbclement.spellingtime;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -73,6 +74,7 @@ public class SpellingListRepository {
                                 VolleyLog.v("Response:%n %s", response.toString(4));
                             } catch (JSONException e) {
                                 e.printStackTrace();
+                                Log.e("SpellingTime","exception",e);
                             }
 
                             callback.onComplete(null);
@@ -88,6 +90,7 @@ public class SpellingListRepository {
             queue.add(req);
         } catch (JSONException e) {
             e.printStackTrace();
+            Log.e("SpellingTime","exception",e);
         }
     }
 

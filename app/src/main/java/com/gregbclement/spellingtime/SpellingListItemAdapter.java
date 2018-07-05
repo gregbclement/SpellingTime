@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import java.util.List;
@@ -29,6 +30,7 @@ public class SpellingListItemAdapter  extends ArrayAdapter<SpellingWord> {
         convertView.setTag(position);
 
 
+        convertView.setMinimumHeight(100);
 
         TextView tvName = (TextView) convertView.findViewById(R.id.tvName);
 
@@ -37,6 +39,11 @@ public class SpellingListItemAdapter  extends ArrayAdapter<SpellingWord> {
         ImageView image = (ImageView)convertView.findViewById(R.id.spellingListIcon);
         image.setImageResource(R.drawable.word);
 
+        RatingBar ratingBar = (RatingBar)convertView.findViewById(R.id.scoreHistoryRatingBar);
+
+        if(spellingWord.getLastScore() != null) {
+            ratingBar.setRating(spellingWord.getLastScore());
+        }
         return convertView;
     }
 }

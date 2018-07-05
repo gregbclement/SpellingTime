@@ -9,4 +9,9 @@
         <item name="android:fontFamily">@font/open_sans_light</item>
     </style>
 
+    <style name="customRatingBar"
+        parent="android:style/Widget.Material.RatingBar.Small">
+        ... // Additional customizations
+    </style>
+
 </resources>

@@ -21,13 +21,19 @@
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
             tools:layout_editor_absoluteY="0dp" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:layout_height="wrap_content">
+
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/pageHeaderTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
             android:layout_marginTop="20dp"
-            android:text="New\nStudent"
+            android:text="New Student"
             android:textSize="24sp" />
 
         <EditText
@@ -38,30 +44,49 @@
             android:hint="Name"
             android:inputType="textPersonName" />
 
-        <Button
-            android:id="@+id/button"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="takePicture"
-            android:text="Take Picture"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:layout_editor_absoluteY="305dp" />
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/profileCircleImage"
-            android:layout_width="75dp"
-            android:layout_height="75dp"
-            android:layout_marginRight="10dp"
-            app:civ_border_color="#27324400"
-            app:civ_border_width="2dp" />
+            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/profileCircleImage"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_marginRight="10dp"
+
+                app:civ_border_color="#27324400"
+                app:civ_border_width="2dp"
+                app:srcCompat="@drawable/list_icon_2" />
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/camera_icon"
+                android:onClick="takePicture"
+                android:text="Take Picture"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:layout_editor_absoluteY="305dp" />
+        </LinearLayout>
+
 
         <Button
             android:id="@+id/button2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="30dp"
+            android:backgroundTint="@color/colorPrimary"
+            android:drawableTop="@drawable/save"
             android:onClick="saveStudent"
-            android:text="Save" />
+            android:paddingBottom="20dp"
+            android:paddingTop="20dp"
+            android:text="Save"
+            android:textColor="@android:color/background_light"
+            android:textSize="24sp" />
+    </LinearLayout>
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
