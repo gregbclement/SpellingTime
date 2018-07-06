@@ -3,6 +3,10 @@ package com.gregbclement.spellingtime.model;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * @author g.clement
+ * Data model representing a single spelling word on a spelling list
+ */
 public class SpellingWord {
     private String word;
     private String listId;

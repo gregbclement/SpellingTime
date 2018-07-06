@@ -6,6 +6,10 @@ import android.util.Base64;
 
 import java.io.Serializable;
 
+/**
+ * @author g.clement
+ * Data model representing a student
+ */
 public class Student implements Serializable {
     private String name;
     private String id;

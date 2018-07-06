@@ -23,6 +23,11 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * @author g.clement
+ * A network repository class that provides CRUD capabilities for SpellingLists by making calls  to
+ * the SpellingTime REST service
+ */
 public class SpellingListRepository {
     private static final String URL  ="https://gregbclement.com/api/SpellingList";
     Context context;

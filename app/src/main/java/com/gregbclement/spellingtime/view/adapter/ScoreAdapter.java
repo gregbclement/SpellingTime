@@ -42,7 +42,6 @@ public class ScoreAdapter extends ArrayAdapter<Score> {
 
         TextView scoreText = (TextView) convertView.findViewById(R.id.scoreText);
         scoreText.setText(dateString);
-        // scoreText.setText(score.getScore().toString());
         RatingBar scoreHistoryRatingBar = convertView.findViewById(R.id.scoreHistoryRatingBar);
 
         scoreHistoryRatingBar.setRating(score.getScore());

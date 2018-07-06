@@ -2,6 +2,10 @@ package com.gregbclement.spellingtime.model;
 
 import java.util.Date;
 
+/**
+ * @author g.clement
+ * Data model representing a score a student earns while spelling a word
+ */
 public class Score {
     private Date date;
     private Integer score;

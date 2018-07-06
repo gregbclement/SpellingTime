@@ -2,6 +2,10 @@ package com.gregbclement.spellingtime.model;
 
 import java.util.List;
 
+/**
+ * @author g.clement
+ * Data model representing a definition of a word retrieved from a spelling API
+ */
 public class SpellingWordDefinition {
     private List<String> definitions;
     private String sentence;

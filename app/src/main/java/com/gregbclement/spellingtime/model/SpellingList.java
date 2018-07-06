@@ -5,6 +5,10 @@ import android.support.annotation.NonNull;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * @author g.clement
+ * Data model representing a spelling list
+ */
 public class SpellingList implements Comparable<SpellingList>, Serializable {
     private String name;
     private String studentId;
