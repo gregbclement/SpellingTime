@@ -58,8 +58,8 @@ public class Student implements Serializable {
         this.picture = picture;
     }
 
-    public    Bitmap getPictureBitmap() {
-        if(picture == "") {
+    public Bitmap getPictureBitmap() {
+        if (picture == "") {
             return null;
         }
 
@@ -70,7 +70,8 @@ public class Student implements Serializable {
             }
 
             return pictureBitmap;
-        }catch(Exception ex) {}
+        } catch (Exception ex) {
+        }
 
         return null;
     }

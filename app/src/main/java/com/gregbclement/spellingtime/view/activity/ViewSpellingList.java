@@ -35,6 +35,7 @@ import java.util.Date;
 import java.util.List;
 
 public class ViewSpellingList extends AppCompatActivity {
+    public static final String SPELLING_LIST_ITEM_INDEX = "com.gregbclement.spellingtime.SPELLING_LIST_ITEM_INDEX";
     SpellingList spellingList;
     List<SpellingWord> spellingWords = new ArrayList<>();
     SpellingListItemAdapter adapter;
@@ -63,15 +64,12 @@ public class ViewSpellingList extends AppCompatActivity {
          adapter = new SpellingListItemAdapter(thisContext, spellingWords);
 
         SwipeMenuListView listView = (SwipeMenuListView) findViewById(R.id.spellingListsLV);
-        // listView.addHeaderView(header);
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                SpellingWord word = spellingWords.get(position);
-
-                // TODO: do something with this word
+               launchQuiz(position - 1);
             }
         });
 
@@ -93,8 +91,6 @@ public class ViewSpellingList extends AppCompatActivity {
                         0x3F, 0x25)));
 
                 deleteItem.setWidth(300);
-                // set item width
-                // add to menu
                 deleteItem.setIcon(R.drawable.trash_icon);
                 menu.addMenuItem(deleteItem);
             }
@@ -143,10 +139,13 @@ public class ViewSpellingList extends AppCompatActivity {
     }
 
     public  void startQuiz(View view) {
+        launchQuiz(0);
+    }
 
-
+    private void launchQuiz(Integer index) {
         Intent intent = new Intent(this, Quiz.class);
         intent.putExtra(ViewStudent.SPELLING_LIST_REFERENCE, spellingList);
+        intent.putExtra(SPELLING_LIST_ITEM_INDEX, index);
         startActivity(intent);
     }
 

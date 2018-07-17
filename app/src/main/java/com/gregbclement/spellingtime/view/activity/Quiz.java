@@ -19,6 +19,18 @@ import com.baoyz.swipemenulistview.SwipeMenu;
 import com.baoyz.swipemenulistview.SwipeMenuCreator;
 import com.baoyz.swipemenulistview.SwipeMenuItem;
 import com.baoyz.swipemenulistview.SwipeMenuListView;
+import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.AxisBase;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.gregbclement.spellingtime.utility.OnSwipeTouchListener;
 import com.gregbclement.spellingtime.R;
 import com.gregbclement.spellingtime.utility.SwipeTarget;
@@ -30,6 +42,7 @@ import com.gregbclement.spellingtime.network.NetworkCallback;
 import com.gregbclement.spellingtime.network.SpellingWordRepository;
 import com.gregbclement.spellingtime.view.adapter.ScoreAdapter;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -52,12 +65,12 @@ public class Quiz extends AppCompatActivity implements SwipeTarget {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        //
-
-        setupLisview();
+        setupListView();
 
         spellingWordRepository = new SpellingWordRepository(this);
         this.spellingList = (SpellingList) getIntent().getSerializableExtra(ViewStudent.SPELLING_LIST_REFERENCE);
+
+        wordIndex = (Integer)getIntent().getIntExtra(ViewSpellingList.SPELLING_LIST_ITEM_INDEX,0);
 
         spellingWordRepository.getListSpellingWords(spellingList, new NetworkCallback<List<SpellingWord>>() {
             @Override
@@ -70,6 +83,8 @@ public class Quiz extends AppCompatActivity implements SwipeTarget {
                 showWord();
             }
         });
+
+        SwipeMenuListView swipeMenuListView = (SwipeMenuListView)findViewById(R.id.scoresLV);
 
         tts = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
             @Override
@@ -90,7 +105,11 @@ public class Quiz extends AppCompatActivity implements SwipeTarget {
 
                 Score score = new Score();
                 score.setDate(Calendar.getInstance().getTime());
-                score.setScore((int) rating);
+                try {
+                    score.setScore((int) rating);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 SpellingWord spellingWord = spellingWords.get(wordIndex);
 
                 if (spellingWord.getScores() == null) {
@@ -118,25 +137,14 @@ public class Quiz extends AppCompatActivity implements SwipeTarget {
         layoutView.setOnTouchListener(new OnSwipeTouchListener(this, this));
     }
 
-    private void setupLisview() {
+    private void setupListView() {
 
         final View header = getLayoutInflater().inflate(R.layout.quiz_header, null);
         SwipeMenuListView listView = (SwipeMenuListView) findViewById(R.id.scoresLV);
-        // listView.addHeaderView(header);
-        // listView.setAdapter(adapter);
 
         final Context thisContext = this;
         adapter = new ScoreAdapter(thisContext, scores);
         listView.setAdapter(adapter);
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                SpellingWord word = spellingWords.get(position);
-
-                // TODO: do something with this word
-            }
-        });
 
         listView.addHeaderView(header, null, false);
 
@@ -144,20 +152,17 @@ public class Quiz extends AppCompatActivity implements SwipeTarget {
 
             @Override
             public void create(SwipeMenu menu) {
-                // create "open" item
                 SwipeMenuItem openItem = new SwipeMenuItem(
                         getApplicationContext());
 
-                // create "delete" item
                 SwipeMenuItem deleteItem = new SwipeMenuItem(
                         getApplicationContext());
-                // set item background
+
                 deleteItem.setBackground(new ColorDrawable(Color.rgb(0xF9,
                         0x3F, 0x25)));
 
                 deleteItem.setWidth(300);
-                // set item width
-                // add to menu
+
                 deleteItem.setIcon(R.drawable.trash_icon);
                 menu.addMenuItem(deleteItem);
             }
@@ -168,7 +173,6 @@ public class Quiz extends AppCompatActivity implements SwipeTarget {
             public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
                 switch (index) {
                     case 0:
-                        // open
                         final Score scoreToDelete = scores.get(position);
 
                         SpellingWordRepository spellingWordRepository = new SpellingWordRepository(thisContext);
@@ -186,7 +190,7 @@ public class Quiz extends AppCompatActivity implements SwipeTarget {
                         });
                         break;
                 }
-                // false : close the menu; true : not close the menu
+
                 return false;
             }
         });
@@ -238,6 +242,7 @@ public class Quiz extends AppCompatActivity implements SwipeTarget {
             return;
         }
 
+        final Context thisContext = this;
         final SpellingWord word = spellingWords.get(wordIndex);
 
         TextView wordText = (TextView) findViewById(R.id.spellingWordText);
@@ -271,6 +276,55 @@ public class Quiz extends AppCompatActivity implements SwipeTarget {
         if(word.getScores() != null) {
             scores.addAll(word.getScores());
         }
+
+        LineChart chart = (LineChart) findViewById(R.id.chart);
+        BarChart barChart = (BarChart)findViewById(R.id.chart1);
+
+        List<Entry> entries = new ArrayList<>();
+        List<BarEntry> barEntries = new ArrayList<>();
+
+        int i = 0;
+        final List<String> labels = new ArrayList<>();
+
+        for(Score score : scores) {
+            Entry e = new Entry(i,score.getScore());
+            DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(getApplicationContext());
+            entries.add(e);
+
+            BarEntry barE = new BarEntry(i,score.getScore());
+            labels.add(dateFormat.format(score.getDate()));
+            barEntries.add(barE);
+
+            i++;
+        }
+
+        IAxisValueFormatter formatter = new IAxisValueFormatter() {
+
+            @Override
+            public String getFormattedValue(float value, AxisBase axis) {
+                return labels.get((int) value);
+            }
+        };
+
+        LineDataSet dataSet = new LineDataSet(entries,"Scores");
+        LineData lineData = new LineData(dataSet);
+        chart.setData(lineData);
+        chart.invalidate();
+        chart.setVisibility(View.GONE);
+
+        BarDataSet barDataSet = new BarDataSet(barEntries, "Scores");
+        BarData barData = new BarData(barDataSet);
+        XAxis xAxis = barChart.getXAxis();
+        xAxis.setGranularity(1f);
+        xAxis.setValueFormatter(formatter);
+        YAxis yAxis = barChart.getAxisLeft();
+        yAxis.setGranularity(1f);
+        YAxis yAxis1 = barChart.getAxisRight();
+        yAxis1.setEnabled(false);
+        barDataSet.setColors(new int[] { R.color.colorAccent, R.color.colorAccent, R.color.colorAccent, R.color.colorAccent }, thisContext);
+        barChart.setFitBars(true);
+        barChart.setData(barData);
+        barChart.invalidate();
 
         adapter.notifyDataSetChanged();
     }

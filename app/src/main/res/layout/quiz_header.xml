@@ -86,8 +86,6 @@
             android:backgroundTint="@android:color/transparent"
             android:onClick="speakWord"
             app:srcCompat="@drawable/speak" />
-
-
         <Button
             android:id="@+id/nextButton"
             android:layout_width="wrap_content"
@@ -103,6 +101,22 @@
         android:layout_marginTop="10dp"
         android:text="SCORE HISTORY"
         android:textStyle="bold" />
+
+    <com.github.mikephil.charting.charts.BarChart
+        android:id="@+id/chart1"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="200dp" />
+
+
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/chart"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="200dp" />
+
 
 
 </LinearLayout>

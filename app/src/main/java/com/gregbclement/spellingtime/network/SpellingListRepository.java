@@ -29,7 +29,7 @@ import java.util.List;
  * the SpellingTime REST service
  */
 public class SpellingListRepository {
-    private static final String URL  ="https://gregbclement.com/api/SpellingList";
+    private static final String URL  = RESTConfig.BASE_URL + "SpellingList";
     Context context;
     public SpellingListRepository(Context context) {
         this.context = context;

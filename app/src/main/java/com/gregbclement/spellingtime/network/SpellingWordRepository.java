@@ -22,15 +22,22 @@ import org.json.JSONObject;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * A class to retrieve Spelling Words from the REST API
+ */
 public class SpellingWordRepository {
-    private static  final  String BASE_URL = "https://gregbclement.com/";
-    private static final String URL = BASE_URL + "api/SpellingWord";
+    private static final String URL = RESTConfig.BASE_URL + "SpellingWord";
     Context context;
 
     public SpellingWordRepository(Context context) {
         this.context = context;
     }
 
+    /**
+     * Gets the words that are associated with a SpellingList
+     * @param list the SpellingList
+     * @param callback a callback that is invoked when the data is retrieved from the server
+     */
     public void getListSpellingWords(SpellingList list, final NetworkCallback callback) {
         RequestQueue queue = Volley.newRequestQueue(context);
 

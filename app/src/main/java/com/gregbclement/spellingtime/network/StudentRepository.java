@@ -22,7 +22,7 @@ import java.util.List;
 
 public class StudentRepository {
 
-    private static final String URL = "https://gregbclement.com/api/Student";
+    private static final String URL = RESTConfig.BASE_URL + "Student";
     Context context;
 
     public StudentRepository(Context context) {
